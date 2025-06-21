@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://hipyf7d1j3bb"]
 
-[ext_resource type="Texture2D" path="res://images/temp_element.jpg" id="1_62s1e"]
+[ext_resource type="Texture2D" uid="uid://cs2x7mixo6ebf" path="res://images/temp_element.jpg" id="1_62s1e"]
 [ext_resource type="Script" path="res://codes/element_movement.gd" id="1_pypqs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mxgr8"]
