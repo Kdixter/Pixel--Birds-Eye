@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://bupe0mtm4fols"]
+
+[ext_resource type="Script" path="res://codes/sub_window_movement.gd" id="1_jmik0"]
+[ext_resource type="Texture2D" path="res://images/sub_window_sprite.webp" id="2_dglql"]
+[ext_resource type="PackedScene" uid="uid://hipyf7d1j3bb" path="res://element.tscn" id="3_8mqfe"]
+[ext_resource type="Script" path="res://element_movement_sub_window.gd" id="4_l1xpu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2pjo"]
+size = Vector2(1021.82, 58.4173)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sysdp"]
+size = Vector2(1024.91, 20.8944)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hj4t3"]
+size = Vector2(19.338, 496.055)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1w72"]
+size = Vector2(21.2336, 497.185)
+
+[node name="sub_window" type="Node2D"]
+script = ExtResource("1_jmik0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1.90735e-06)
+scale = Vector2(0.413696, 0.442491)
+texture = ExtResource("2_dglql")
+
+[node name="main_area" type="Area2D" parent="Sprite2D"]
+position = Vector2(0, 1)
+
+[node name="movement_col" type="CollisionShape2D" parent="Sprite2D/main_area"]
+position = Vector2(1.54172, -260.722)
+shape = SubResource("RectangleShape2D_b2pjo")
+
+[node name="bott_area" type="Area2D" parent="Sprite2D/main_area"]
+position = Vector2(-502.784, 28.3791)
+
+[node name="bott_sub_col" type="CollisionShape2D" parent="Sprite2D/main_area/bott_area"]
+position = Vector2(502.784, 247.74)
+shape = SubResource("RectangleShape2D_sysdp")
+
+[node name="left_area" type="Area2D" parent="Sprite2D/main_area"]
+position = Vector2(1.54172, -248.151)
+
+[node name="left_sub_col" type="CollisionShape2D" parent="Sprite2D/main_area/left_area"]
+position = Vector2(-504.326, 264.666)
+shape = SubResource("RectangleShape2D_hj4t3")
+
+[node name="right_area" type="Area2D" parent="Sprite2D/main_area"]
+position = Vector2(0, 276.119)
+
+[node name="right_sub_col" type="CollisionShape2D" parent="Sprite2D/main_area/right_area"]
+position = Vector2(501.315, -259.04)
+shape = SubResource("RectangleShape2D_v1w72")
+
+[node name="element_instance" parent="." instance=ExtResource("3_8mqfe")]
+script = ExtResource("4_l1xpu")
+
+[connection signal="area_entered" from="Sprite2D/main_area" to="element_instance" method="_on_main_area_area_entered"]
+[connection signal="input_event" from="Sprite2D/main_area" to="." method="_on_main_area_input_event"]
+[connection signal="area_entered" from="Sprite2D/main_area/bott_area" to="element_instance" method="_on_bott_area_area_entered"]
+[connection signal="area_entered" from="Sprite2D/main_area/left_area" to="element_instance" method="_on_left_area_area_entered"]
+[connection signal="area_entered" from="Sprite2D/main_area/right_area" to="element_instance" method="_on_right_area_area_entered"]

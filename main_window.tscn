@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://ckdlc6v0b4wa0"]
+
+[ext_resource type="Texture2D" uid="uid://31ikj4inwthf" path="res://images/main_window_sprite.jpg" id="1_7lily"]
+[ext_resource type="PackedScene" uid="uid://cqbhleqbnph4g" path="res://sub_window.tscn" id="2_urnsl"]
+[ext_resource type="PackedScene" uid="uid://ds05ukvhi1smh" path="res://terminal.tscn" id="3_84t1q"]
+[ext_resource type="Script" path="res://sub_window_1_collision.gd" id="3_qnuq4"]
+[ext_resource type="Script" path="res://sub_window_2_collision.gd" id="4_vyvlp"]
+[ext_resource type="PackedScene" uid="uid://cf4vol0wv0gvv" path="res://codes/freeze_unfreeze.tscn" id="6_2v8xm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3et2"]
+size = Vector2(1976.17, 33.656)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yiavq"]
+size = Vector2(1975.89, 31.5432)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35lt4"]
+size = Vector2(29.1949, 1198.1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5v0x"]
+size = Vector2(27.983, 1201.03)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdkwm"]
+size = Vector2(717, 73)
+
+[node name="main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="main_window_sprite" type="Sprite2D" parent="Camera2D"]
+position = Vector2(0, -1.00002)
+scale = Vector2(0.582292, 0.511667)
+texture = ExtResource("1_7lily")
+
+[node name="main_area" type="Area2D" parent="Camera2D/main_window_sprite"]
+
+[node name="top_col_main" type="CollisionShape2D" parent="Camera2D/main_window_sprite/main_area"]
+position = Vector2(1.11142, 616.397)
+shape = SubResource("RectangleShape2D_l3et2")
+
+[node name="left_col_area" type="Area2D" parent="Camera2D/main_window_sprite"]
+
+[node name="left_col_main" type="CollisionShape2D" parent="Camera2D/main_window_sprite/left_col_area"]
+position = Vector2(0, -615.772)
+shape = SubResource("RectangleShape2D_yiavq")
+
+[node name="bot_col_area" type="Area2D" parent="Camera2D/main_window_sprite"]
+position = Vector2(1.11142, 616.397)
+
+[node name="bot_col_main" type="CollisionShape2D" parent="Camera2D/main_window_sprite/bot_col_area"]
+position = Vector2(973.486, -615.448)
+shape = SubResource("RectangleShape2D_35lt4")
+
+[node name="right_col_area" type="Area2D" parent="Camera2D/main_window_sprite"]
+
+[node name="right_col_main" type="CollisionShape2D" parent="Camera2D/main_window_sprite/right_col_area"]
+position = Vector2(-973.992, -0.517103)
+shape = SubResource("RectangleShape2D_g5v0x")
+
+[node name="sub_window_1" parent="Camera2D" instance=ExtResource("2_urnsl")]
+position = Vector2(287, -134)
+script = ExtResource("3_qnuq4")
+
+[node name="sub_window_2" parent="Camera2D" instance=ExtResource("2_urnsl")]
+position = Vector2(-283, -134)
+script = ExtResource("4_vyvlp")
+
+[node name="Terminal" parent="Camera2D" instance=ExtResource("3_84t1q")]
+position = Vector2(-1, 221)
+
+[node name="Area2D" type="Area2D" parent="Camera2D/Terminal"]
+
+[node name="terminal_coll" type="CollisionShape2D" parent="Camera2D/Terminal/Area2D"]
+position = Vector2(1.5, 7.5)
+shape = SubResource("RectangleShape2D_wdkwm")
+
+[node name="Freeze_Unfreeze" parent="Camera2D" instance=ExtResource("6_2v8xm")]
+position = Vector2(460, 228)
+
+[connection signal="area_entered" from="Camera2D/Terminal/Area2D" to="Camera2D/sub_window_1" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Camera2D/Terminal/Area2D" to="Camera2D/sub_window_2" method="_on_area_2d_area_entered"]
