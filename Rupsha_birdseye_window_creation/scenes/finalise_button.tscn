@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2s4kk38s2wt3"]
+
+[ext_resource type="Script" path="res://scripts/finalise_button.gd" id="1_jr07g"]
+
+[node name="finalise_button" type="Button"]
+offset_right = 128.0
+offset_bottom = 101.0
+text = "Undo"
+script = ExtResource("1_jr07g")

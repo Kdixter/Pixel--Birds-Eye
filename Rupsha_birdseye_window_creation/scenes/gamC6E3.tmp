@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu47aww18hm3l"]
+
+[ext_resource type="PackedScene" uid="uid://c0vlxhs7yl4o2" path="res://scenes/main_view.tscn" id="1_2kbbg"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_lycgo"]
+[ext_resource type="PackedScene" uid="uid://d2s4kk38s2wt3" path="res://scenes/finalise_button.tscn" id="3_jwslk"]
+
+[sub_resource type="TileSet" id="TileSet_w0us5"]
+tile_size = Vector2i(40, 40)
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_lycgo")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 60)
+position_smoothing_enabled = true
+
+[node name="undo_button" parent="." instance=ExtResource("3_jwslk")]
+offset_left = 193.0
+offset_top = 187.0
+offset_right = 321.0
+offset_bottom = 288.0
+
+[node name="window_grid" type="TileMapLayer" parent="."]
+position = Vector2(0, -20)
+tile_set = SubResource("TileSet_w0us5")
+
+[node name="main_view" parent="." instance=ExtResource("1_2kbbg")]
+
+[connection signal="pressed" from="undo_button" to="." method="_on_undo_button_pressed"]
+[connection signal="rectangle_check" from="main_view" to="." method="_on_main_view_rectangle_check"]
