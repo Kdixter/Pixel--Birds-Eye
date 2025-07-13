@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv4qpx6pnho55"]
+
+[ext_resource type="Texture2D" uid="uid://bkepgvs548e4y" path="res://Images/images.jpeg" id="1_xytls"]
+
+[node name="unfreeze" type="Node2D"]
+
+[node name="unfreeze_sprite" type="Sprite2D" parent="."]
+position = Vector2(-1.52588e-05, 0)
+scale = Vector2(0.42, 0.362222)
+texture = ExtResource("1_xytls")
+
+[node name="unfreeze_button" type="Button" parent="unfreeze_sprite"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -107.143
+offset_top = -107.669
+offset_right = -116.143
+offset_bottom = -115.669
+grow_horizontal = 2
+grow_vertical = 2

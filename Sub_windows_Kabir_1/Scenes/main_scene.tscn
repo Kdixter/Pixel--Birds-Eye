@@ -1,0 +1,122 @@
+[gd_scene load_steps=20 format=3 uid="uid://crpbbc1xdv78o"]
+
+[ext_resource type="Texture2D" uid="uid://31ikj4inwthf" path="res://Images/main_window_sprite.jpg" id="1_dd6lb"]
+[ext_resource type="PackedScene" uid="uid://cikfywn1cnlsl" path="res://Scenes/sub_window.tscn" id="2_10jc7"]
+[ext_resource type="PackedScene" uid="uid://dv4qpx6pnho55" path="res://Scenes/unfreeze.tscn" id="2_ukfb5"]
+[ext_resource type="PackedScene" uid="uid://dl1t73aj1n17r" path="res://Scenes/freeze.tscn" id="3_8ugnu"]
+[ext_resource type="Script" path="res://Scenes/sub_window_1_move.gd" id="5_bge4j"]
+[ext_resource type="Script" path="res://Scenes/sub_window_2_move.gd" id="6_m31th"]
+[ext_resource type="PackedScene" uid="uid://c3obls1kj16xi" path="res://Scenes/elements.tscn" id="6_p2eal"]
+[ext_resource type="Script" path="res://Scenes/elements_1_move.gd" id="7_laaww"]
+[ext_resource type="Script" path="res://Scenes/elements_2_move.gd" id="9_x73nr"]
+[ext_resource type="Script" path="res://Scenes/main_left_area.gd" id="10_2nql3"]
+[ext_resource type="Script" path="res://Scenes/main_bot_area.gd" id="11_kse3d"]
+[ext_resource type="Script" path="res://Scenes/main_right_area.gd" id="12_h4veu"]
+[ext_resource type="Script" path="res://Scenes/main_top_area.gd" id="13_1v5cw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2t4l"]
+size = Vector2(42, 79)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47r4i"]
+size = Vector2(38, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxh1x"]
+size = Vector2(29.4425, 1198.78)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ua4s"]
+size = Vector2(1883.36, 37.1259)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajrve"]
+size = Vector2(29.4426, 1156.81)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gnd2l"]
+size = Vector2(1857.57, 20)
+
+[node name="Main_Scene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="main_scene_sprite" type="Sprite2D" parent="Camera2D"]
+position = Vector2(11, 4)
+scale = Vector2(0.593229, 0.529167)
+texture = ExtResource("1_dd6lb")
+
+[node name="unfreeze" parent="Camera2D/main_scene_sprite" instance=ExtResource("2_ukfb5")]
+position = Vector2(-777.103, 436.535)
+
+[node name="freeze" parent="Camera2D/main_scene_sprite" instance=ExtResource("3_8ugnu")]
+position = Vector2(819.245, 442.205)
+scale = Vector2(1.68569, 1.88976)
+
+[node name="Sub_window_1" parent="Camera2D" instance=ExtResource("2_10jc7")]
+visibility_layer = 2
+position = Vector2(-289, -97)
+script = ExtResource("5_bge4j")
+
+[node name="elements_1" parent="Camera2D/Sub_window_1" instance=ExtResource("6_p2eal")]
+position = Vector2(-22, -56)
+script = ExtResource("7_laaww")
+
+[node name="element_area_1" type="Area2D" parent="Camera2D/Sub_window_1/elements_1"]
+
+[node name="ele_col_1" type="CollisionShape2D" parent="Camera2D/Sub_window_1/elements_1/element_area_1"]
+position = Vector2(19, 35)
+shape = SubResource("RectangleShape2D_k2t4l")
+
+[node name="Sub_window_2" parent="Camera2D" instance=ExtResource("2_10jc7")]
+visibility_layer = 2
+position = Vector2(255, -93)
+script = ExtResource("6_m31th")
+
+[node name="elements_2" parent="Camera2D/Sub_window_2" instance=ExtResource("6_p2eal")]
+position = Vector2(-42, -55)
+script = ExtResource("9_x73nr")
+
+[node name="element_area_2" type="Area2D" parent="Camera2D/Sub_window_2/elements_2"]
+
+[node name="ele_col_2" type="CollisionShape2D" parent="Camera2D/Sub_window_2/elements_2/element_area_2"]
+position = Vector2(20, 37)
+shape = SubResource("RectangleShape2D_47r4i")
+
+[node name="left_area" type="Area2D" parent="Camera2D"]
+position = Vector2(0, -2)
+scale = Vector2(0.593229, 0.529167)
+script = ExtResource("10_2nql3")
+
+[node name="left_col" type="CollisionShape2D" parent="Camera2D/left_area"]
+position = Vector2(-945.222, -0.334607)
+shape = SubResource("RectangleShape2D_gxh1x")
+
+[node name="bot_area" type="Area2D" parent="Camera2D"]
+position = Vector2(0, -2)
+scale = Vector2(0.593229, 0.529167)
+script = ExtResource("11_kse3d")
+
+[node name="bot_col" type="CollisionShape2D" parent="Camera2D/bot_area"]
+position = Vector2(15.7891, 580.158)
+shape = SubResource("RectangleShape2D_7ua4s")
+
+[node name="right_area" type="Area2D" parent="Camera2D"]
+position = Vector2(0, -2)
+scale = Vector2(0.593229, 0.529167)
+script = ExtResource("12_h4veu")
+
+[node name="right_col" type="CollisionShape2D" parent="Camera2D/right_area"]
+position = Vector2(943.536, -18.7598)
+shape = SubResource("RectangleShape2D_ajrve")
+
+[node name="top_area" type="Area2D" parent="Camera2D"]
+position = Vector2(0, -2)
+scale = Vector2(0.593229, 0.529167)
+script = ExtResource("13_1v5cw")
+
+[node name="top_col" type="CollisionShape2D" parent="Camera2D/top_area"]
+position = Vector2(0.0284481, -585.827)
+shape = SubResource("RectangleShape2D_gnd2l")
+
+[connection signal="input_event" from="Camera2D/Sub_window_1/elements_1/element_area_1" to="Camera2D/Sub_window_1/elements_1" method="_on_element_area_1_input_event"]
+[connection signal="input_event" from="Camera2D/Sub_window_2/elements_2/element_area_2" to="Camera2D/Sub_window_2/elements_2" method="_on_element_area_2_input_event"]
+[connection signal="area_entered" from="Camera2D/left_area" to="Camera2D/left_area" method="_on_area_entered"]
+[connection signal="area_entered" from="Camera2D/bot_area" to="Camera2D/bot_area" method="_on_area_entered"]
+[connection signal="area_entered" from="Camera2D/right_area" to="Camera2D/right_area" method="_on_area_entered"]
+[connection signal="area_entered" from="Camera2D/top_area" to="Camera2D/top_area" method="_on_area_entered"]

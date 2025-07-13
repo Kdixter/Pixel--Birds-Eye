@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl1t73aj1n17r"]
+
+[ext_resource type="Texture2D" uid="uid://bkepgvs548e4y" path="res://Images/images.jpeg" id="1_bwwt4"]
+
+[node name="freeze" type="Node2D"]
+
+[node name="freeze_sprite" type="Sprite2D" parent="."]
+position = Vector2(1.90735e-06, -9.53674e-07)
+scale = Vector2(0.226667, 0.2)
+texture = ExtResource("1_bwwt4")
+
+[node name="freeze_button" type="Button" parent="freeze_sprite"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.967
+offset_left = -110.0
+offset_top = -110.0
+offset_right = -119.0
+offset_bottom = -107.575

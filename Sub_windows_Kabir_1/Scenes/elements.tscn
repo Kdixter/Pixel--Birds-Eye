@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3obls1kj16xi"]
+
+[ext_resource type="Texture2D" uid="uid://cfjsuni8r21iu" path="res://Images/Dave_Miller.webp" id="1_b7at2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dggik"]
+size = Vector2(169.253, 342.326)
+
+[node name="elements" type="Node2D"]
+
+[node name="element_sprite" type="Sprite2D" parent="."]
+position = Vector2(19.0625, 38.625)
+scale = Vector2(0.196243, 0.213194)
+texture = ExtResource("1_b7at2")
+
+[node name="element_area" type="Area2D" parent="element_sprite"]
+
+[node name="element_collision" type="CollisionShape2D" parent="element_sprite/element_area"]
+position = Vector2(1.51118, -2.32558)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_dggik")

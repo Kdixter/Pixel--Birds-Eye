@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cikfywn1cnlsl"]
+
+[ext_resource type="Texture2D" uid="uid://vjgbbr6jsxko" path="res://Images/screen-record-on-windows.png" id="1_8o86m"]
+[ext_resource type="Script" path="res://Scenes/sub_movement_area.gd" id="2_ysc58"]
+[ext_resource type="Script" path="res://Scenes/sub_left_area.gd" id="3_xf3n5"]
+[ext_resource type="Script" path="res://Scenes/sub_right_area.gd" id="4_wayri"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsd63"]
+size = Vector2(1499.21, 138.173)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee3sd"]
+size = Vector2(100.878, 1017.76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ct15n"]
+size = Vector2(99.5097, 1018)
+
+[node name="Sub_window" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.999996, -2)
+scale = Vector2(0.220365, 0.204028)
+texture = ExtResource("1_8o86m")
+
+[node name="movement_area" type="Area2D" parent="Sprite2D"]
+script = ExtResource("2_ysc58")
+
+[node name="move_col" type="CollisionShape2D" parent="Sprite2D/movement_area"]
+position = Vector2(0.201263, 480.794)
+shape = SubResource("RectangleShape2D_vsd63")
+
+[node name="left_area" type="Area2D" parent="Sprite2D/movement_area"]
+position = Vector2(-311.446, -157.215)
+script = ExtResource("3_xf3n5")
+
+[node name="left_col" type="CollisionShape2D" parent="Sprite2D/movement_area/left_area"]
+position = Vector2(-387.917, 116.997)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ee3sd")
+
+[node name="right-area" type="Area2D" parent="Sprite2D/movement_area"]
+position = Vector2(521.334, -127.966)
+script = ExtResource("4_wayri")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/movement_area/right-area"]
+position = Vector2(177.508, 83.8541)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ct15n")
+
+[connection signal="area_entered" from="Sprite2D/movement_area" to="Sprite2D/movement_area" method="_on_area_entered"]
+[connection signal="input_event" from="Sprite2D/movement_area" to="." method="_on_movement_area_input_event"]
+[connection signal="area_entered" from="Sprite2D/movement_area/left_area" to="Sprite2D/movement_area/left_area" method="_on_area_entered"]
+[connection signal="area_entered" from="Sprite2D/movement_area/right-area" to="Sprite2D/movement_area/right-area" method="_on_area_entered"]
