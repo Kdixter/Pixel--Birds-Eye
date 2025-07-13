@@ -3,17 +3,18 @@
 [ext_resource type="Texture2D" uid="uid://jfcagk4kswh8" path="res://images/terminal_spr.jpeg" id="1_j4ifp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nygmk"]
-size = Vector2(259.244, 195.349)
+size = Vector2(259.492, 195.349)
 
 [node name="Terminal" type="Node2D"]
 
 [node name="terminal_sprite" type="Sprite2D" parent="."]
-position = Vector2(1.13687e-13, 5.9375)
-scale = Vector2(2.76931, 0.378846)
+position = Vector2(-1.90735e-06, 0)
+scale = Vector2(2.03475, 0.378846)
 texture = ExtResource("1_j4ifp")
 
 [node name="terminal_area" type="Area2D" parent="terminal_sprite"]
 
 [node name="terminal_coll" type="CollisionShape2D" parent="terminal_sprite/terminal_area"]
-position = Vector2(-9.53674e-07, 0.174728)
+position = Vector2(-9.53674e-07, 0)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_nygmk")

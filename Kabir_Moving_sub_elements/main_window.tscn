@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckdlc6v0b4wa0"]
+[gd_scene load_steps=13 format=3 uid="uid://ckdlc6v0b4wa0"]
 
 [ext_resource type="Texture2D" uid="uid://31ikj4inwthf" path="res://images/main_window_sprite.jpg" id="1_7lily"]
 [ext_resource type="PackedScene" uid="uid://bupe0mtm4fols" path="res://sub_window.tscn" id="2_urnsl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://sub_window_1_collision.gd" id="3_qnuq4"]
 [ext_resource type="Script" path="res://sub_window_2_collision.gd" id="4_vyvlp"]
 [ext_resource type="PackedScene" uid="uid://cf4vol0wv0gvv" path="res://codes/freeze_unfreeze.tscn" id="6_2v8xm"]
+[ext_resource type="PackedScene" uid="uid://dywr1ki2ctaik" path="res://unfreeze.tscn" id="7_qfr0a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3et2"]
 size = Vector2(1976.17, 33.656)
@@ -75,6 +76,9 @@ shape = SubResource("RectangleShape2D_wdkwm")
 
 [node name="Freeze_Unfreeze" parent="Camera2D" instance=ExtResource("6_2v8xm")]
 position = Vector2(460, 228)
+
+[node name="Unfreeze" parent="." instance=ExtResource("7_qfr0a")]
+position = Vector2(-469, 186)
 
 [connection signal="area_entered" from="Camera2D/Terminal/Area2D" to="Camera2D/sub_window_1" method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="Camera2D/Terminal/Area2D" to="Camera2D/sub_window_2" method="_on_area_2d_area_entered"]
