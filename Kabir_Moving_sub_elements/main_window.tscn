@@ -21,7 +21,7 @@ size = Vector2(29.1949, 1198.1)
 size = Vector2(27.983, 1201.03)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wdkwm"]
-size = Vector2(717, 73)
+size = Vector2(527, 73)
 
 [node name="main" type="Node2D"]
 
@@ -71,14 +71,14 @@ position = Vector2(-1, 221)
 [node name="Area2D" type="Area2D" parent="Camera2D/Terminal"]
 
 [node name="terminal_coll" type="CollisionShape2D" parent="Camera2D/Terminal/Area2D"]
-position = Vector2(1.5, 7.5)
+position = Vector2(1.5, -1)
 shape = SubResource("RectangleShape2D_wdkwm")
 
 [node name="Freeze_Unfreeze" parent="Camera2D" instance=ExtResource("6_2v8xm")]
 position = Vector2(460, 228)
 
 [node name="Unfreeze" parent="." instance=ExtResource("7_qfr0a")]
-position = Vector2(-469, 186)
+position = Vector2(-455, 224)
 
 [connection signal="area_entered" from="Camera2D/Terminal/Area2D" to="Camera2D/sub_window_1" method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="Camera2D/Terminal/Area2D" to="Camera2D/sub_window_2" method="_on_area_2d_area_entered"]
