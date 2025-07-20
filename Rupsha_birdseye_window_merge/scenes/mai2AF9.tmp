@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu47aww18hm3l"]
+
+[ext_resource type="Script" path="res://scripts/mainview_selector.gd" id="1_2iiq3"]
+[ext_resource type="Texture2D" uid="uid://brdnccxwaeq1d" path="res://assets/sprites/background.png" id="2_r2hbx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ilt0"]
+size = Vector2(640, 360)
+
+[node name="main_view" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_2iiq3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_6ilt0")
+one_way_collision_margin = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("2_r2hbx")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 60)
+position_smoothing_enabled = true

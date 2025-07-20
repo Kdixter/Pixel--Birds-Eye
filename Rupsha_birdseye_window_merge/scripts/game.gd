@@ -1,0 +1,134 @@
+extends Node2D
+
+var window_data := Dictionary()
+### IMP: This stores a dictionary, formatted as follows:
+### {key: start_index of a tile in the window, value: [end_index, rectangle, [entity_rectangles]]
+### Through this, it will be possible to reconstruct the background tile data for a
+### window, and place the entities it encloses, correctly.
+
+
+var check_rect := Rect2()
+var entity_rect := Rect2()
+
+var entity_coords := Array()
+var counter := int()
+
+var subwindow_template = preload("res://scenes/subwindow.tscn")
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+	
+func _process(_delta: float) -> void:
+	#print($main_view.start)
+	pass
+
+func locate_relative_rectangle(node, scene):
+	var node_rect = node.get_node("TextureRect").get_global_rect()
+	node_rect.position = scene.to_local(node_rect.position)
+	
+	return node_rect
+
+func _on_main_view_rectangle_check() -> void:
+	check_rect = $main_view.rect
+	
+	for rec in $main_view.valid_recs:
+		if check_rect.intersects(rec):
+			print("invalid selection")
+			return
+	
+	
+	for entity in $main_view/Entities.get_children():
+		entity_rect = locate_relative_rectangle(entity, $main_view)
+		
+		counter = 0
+		#print(entity_rect)
+		
+		if check_rect.encloses(entity_rect):
+			counter += 1
+			
+		elif check_rect.intersects(entity_rect):
+			print("invalid selection")
+			return
+		
+		for rec in $main_view.valid_recs:
+			if rec.encloses(entity_rect):
+				counter += 1
+			if counter == 2:
+				print("entity found in multiple rectangles")
+				return
+		
+	$main_view.valid_recs.append(check_rect)
+	
+	window_data[$main_view.start] = [$main_view.end, check_rect]
+	
+	
+	entity_coords = []
+	
+	for entity in $main_view/Entities.get_children():
+		entity_rect = locate_relative_rectangle(entity, $main_view)
+		
+		if check_rect.encloses(entity_rect):
+			
+			entity_coords.append(entity_rect)
+		
+	window_data[$main_view.start].append(entity_coords)
+	
+	print(window_data)
+	#queue_redraw()
+
+func _on_undo_button_pressed() -> void:
+	var deleted_rec = $main_view.valid_recs.pop_back()
+	$main_view.queue_redraw()
+	
+	for key in window_data:
+		if window_data[key][1] == deleted_rec:
+			window_data.erase(key)
+
+
+func reparent_entities(subwindow, key):
+	for entity in $main_view/Entities.get_children():
+		var chosen_entity_rect = locate_relative_rectangle(entity, $main_view)
+		
+		for entity_rect in window_data[key][2]:
+			#print(chosen_entity_rect.position, entity_rect.position)
+			if chosen_entity_rect.position == entity_rect.position:
+				entity.reparent(subwindow)
+				print("reparented!")
+
+func set_tiles(subwindow, key):
+	var relative_tile = Vector2i()
+	var dest_tilemap = subwindow.get_child(1).get_child()
+	
+	var pqers = TileMapLayer
+	pqers.set_tiles()
+	
+	var start_coord = key
+	var end_coord = window_data[key][0]
+	
+	var x_units = end_coord.x - key.x
+	var y_units = end_coord.y - key.y
+	
+	for i in range(x_units):
+		for j in range(y_units):
+			relative_tile = Vector2i(i,j)
+			
+			var tile_data = $main_view/InternalGrid.get_cell_tile_data(0, key + relative_tile)
+			
+			dest_tilemap.set_cell()
+
+func _on_finalise_button_pressed() -> void:
+	
+	for key in window_data:
+		
+		var subwindow = subwindow_template.instantiate()
+		subwindow.update_reference_rect_size(window_data[key][1].size)
+		subwindow.position = window_data[key][1].position - Vector2(0, 40)
+		
+		if window_data[key][2]:
+			reparent_entities(subwindow, key)
+						
+		
+		add_child(subwindow)
+	
+	remove_child($main_view)

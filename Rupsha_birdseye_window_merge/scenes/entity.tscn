@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbw8hmyow6ie7"]
+
+[ext_resource type="Texture2D" uid="uid://cx86vboi7bebp" path="res://assets/sprites/base_entities.png" id="1_0ksxm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0ccg"]
+size = Vector2(225, 195)
+
+[node name="entity" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0ksxm")
+region_enabled = true
+region_rect = Rect2(137.5, 69, 247, 241)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-2.5, 1.5)
+shape = SubResource("RectangleShape2D_s0ccg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -115.0
+offset_top = -96.0
+offset_right = 111.0
+offset_bottom = 99.0

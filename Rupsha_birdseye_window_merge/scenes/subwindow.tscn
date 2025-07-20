@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2oem6v5hjbvm"]
+
+[ext_resource type="Script" path="res://scripts/sub_window_ref.gd" id="1_u2152"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vwxpk"]
+size = Vector2(160, 20)
+
+[sub_resource type="TileSet" id="TileSet_c8o1l"]
+tile_size = Vector2i(40, 40)
+
+[node name="subwindow" type="Node2D"]
+script = ExtResource("1_u2152")
+
+[node name="main_area" type="Area2D" parent="."]
+
+[node name="movement_col" type="CollisionShape2D" parent="main_area"]
+visibility_layer = 2
+position = Vector2(80, 10)
+shape = SubResource("RectangleShape2D_vwxpk")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+offset_top = 21.0
+offset_right = 160.0
+offset_bottom = 181.0
+border_color = Color(0.54577, 0.989122, 0.695846, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="TileMapLayer" type="TileMapLayer" parent="ReferenceRect"]
+tile_set = SubResource("TileSet_c8o1l")
+
+[connection signal="input_event" from="main_area" to="." method="_on_main_area_input_event"]

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d2s4kk38s2wt3"]
+
+[node name="undo_button" type="Button"]
+offset_right = 128.0
+offset_bottom = 101.0
+text = "Undo
+"

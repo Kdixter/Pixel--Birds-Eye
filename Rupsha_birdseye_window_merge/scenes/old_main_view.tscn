@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc1bj156ua1iq"]
+
+[ext_resource type="Script" path="res://scripts/selection_manager.gd" id="1_ccq3s"]
+[ext_resource type="Texture2D" uid="uid://cx86vboi7bebp" path="res://assets/sprites/base_entities.png" id="2_k0ufv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1epm"]
+size = Vector2(55, 277)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hmort"]
+radius = 118.423
+
+[node name="MainView" type="Node2D"]
+
+[node name="View" type="ColorRect" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.41598, 0.41598, 0.41598, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectionManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 80.0
+offset_top = 115.0
+offset_right = 120.0
+offset_bottom = 155.0
+script = ExtResource("1_ccq3s")
+metadata/_edit_use_anchors_ = true
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Entities/StaticBody2D"]
+position = Vector2(58, 202)
+scale = Vector2(0.569853, 0.875781)
+texture = ExtResource("2_k0ufv")
+region_enabled = true
+region_rect = Rect2(23.824, 0, 96.5251, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/StaticBody2D"]
+position = Vector2(58, 202)
+shape = SubResource("RectangleShape2D_i1epm")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Entities"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Entities/CharacterBody2D"]
+position = Vector2(485, 230)
+texture = ExtResource("2_k0ufv")
+region_enabled = true
+region_rect = Rect2(147.31, 92.2634, 221.838, 198.977)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CharacterBody2D"]
+position = Vector2(481, 232)
+shape = SubResource("CircleShape2D_hmort")

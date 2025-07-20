@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://betxt834pdsx6"]
+
+[node name="Button" type="Button"]
+offset_right = 127.0
+offset_bottom = 94.0
+text = "Freeze"

@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bu47aww18hm3l"]
+
+[ext_resource type="PackedScene" uid="uid://c0vlxhs7yl4o2" path="res://scenes/main_view.tscn" id="1_2kbbg"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_lycgo"]
+[ext_resource type="PackedScene" uid="uid://d2s4kk38s2wt3" path="res://scenes/undo_button.tscn" id="3_jwslk"]
+[ext_resource type="PackedScene" uid="uid://b85wsjultkxs0" path="res://scenes/finalise_button.tscn" id="3_lqvc4"]
+[ext_resource type="PackedScene" uid="uid://betxt834pdsx6" path="res://scenes/freeze_button.tscn" id="5_vwk1l"]
+
+[sub_resource type="TileSet" id="TileSet_w0us5"]
+tile_size = Vector2i(40, 40)
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_lycgo")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 60)
+position_smoothing_enabled = true
+
+[node name="window_grid" type="TileMapLayer" parent="."]
+position = Vector2(0, -20)
+tile_set = SubResource("TileSet_w0us5")
+
+[node name="main_view" parent="." instance=ExtResource("1_2kbbg")]
+position = Vector2(0, -21)
+
+[node name="undo_button" parent="." instance=ExtResource("3_jwslk")]
+offset_left = 373.0
+offset_top = -201.0
+offset_right = 455.0
+offset_bottom = -132.0
+
+[node name="finalise_button" parent="." instance=ExtResource("3_lqvc4")]
+offset_left = 375.0
+offset_top = -122.0
+offset_right = 458.0
+offset_bottom = -53.0
+
+[node name="freeze_button" parent="." instance=ExtResource("5_vwk1l")]
+offset_left = 375.0
+offset_top = -43.0
+offset_right = 460.0
+offset_bottom = 26.0
+
+[connection signal="rectangle_check" from="main_view" to="." method="_on_main_view_rectangle_check"]
+[connection signal="pressed" from="undo_button" to="." method="_on_undo_button_pressed"]
+[connection signal="pressed" from="finalise_button" to="." method="_on_finalise_button_pressed"]
