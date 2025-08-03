@@ -9,9 +9,10 @@ size = Vector2(448, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcxas"]
 size = Vector2(448.5, 280.5)
 
-[node name="SubWindow" type="Node2D"]
+[node name="SubWindow" type="Node2D" groups=["sub_windows"]]
 
 [node name="Draggable" parent="." instance=ExtResource("1_1ccvd")]
+is_element = false
 
 [node name="CollisionShape2D" parent="Draggable" index="0"]
 position = Vector2(1, -128)
