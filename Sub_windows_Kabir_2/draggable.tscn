@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://m5qq5cysib6t" path="res://Images/sub_window_sprite.jpg" id="2_mc8f1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mxei"]
-size = Vector2(448, 26)
+size = Vector2(129, 242)
 
 [node name="Draggable" type="Area2D"]
 script = ExtResource("1_wstb8")

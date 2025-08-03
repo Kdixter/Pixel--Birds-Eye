@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkvxvh2h7oohb"]
+[gd_scene load_steps=4 format=3 uid="uid://bkvxvh2h7oohb"]
 
 [ext_resource type="PackedScene" uid="uid://b8nlq7kpbdta5" path="res://draggable.tscn" id="1_1ccvd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2avnm"]
+size = Vector2(448, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcxas"]
 size = Vector2(448.5, 280.5)
@@ -11,6 +14,7 @@ size = Vector2(448.5, 280.5)
 
 [node name="CollisionShape2D" parent="Draggable" index="0"]
 position = Vector2(1, -128)
+shape = SubResource("RectangleShape2D_2avnm")
 
 [node name="DropContainer" type="Area2D" parent="." groups=["drop_container"]]
 
