@@ -1,73 +1,80 @@
 # Filename: draggable.gd
-# --- CORRECTED AND FINAL SCRIPT ---
+# --- FINAL VERSION WITH CORRECT STATE MANAGEMENT ---
 extends Area2D
 
-# Use an export variable to tell the script if it's controlling an element or a window.
-# In the editor, check this box for the Draggable node inside Element.tscn,
-# and leave it unchecked for the Draggable node inside SubWindow.tscn.
 @export var is_element: bool = false
 
-var is_dragging = false
-var original_parent_node = null # This will be the ElementContainer
+var is_dragging: bool = false
+var offset: Vector2 = Vector2.ZERO
+# This now tracks the element's CURRENT home, and is updated on a successful drop.
+var current_container_area: Area2D = null
+
+func _ready():
+	# When the element is first created, determine its initial container.
+	if is_element:
+		# Path: Draggable -> Element -> ElementContainer -> DropContainer
+		current_container_area = get_parent().get_parent().get_parent()
+
+# Use _unhandled_input to catch the drop command anywhere on the screen.
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
+		if is_dragging:
+			is_dragging = false
+			get_parent().z_index = 0 # Return to normal visual layer.
+			
+			if is_element:
+				handle_element_drop()
+			
+			get_viewport().set_input_as_handled()
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	# Use the built-in event system to handle both press and release.
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.is_pressed():
-			# --- START DRAGGING ---
-			is_dragging = true
-			
-			# Store the original parent (the ElementContainer)
-			if is_element:
-				original_parent_node = get_parent().get_parent() # Draggable -> Element -> ElementContainer
-			
-			# Bring the whole object (SubWindow or Element scene) to the front
-			get_parent().z_index = 10
-			
-		elif event.is_released():
-			# --- STOP DRAGGING ---
-			if not is_dragging:
-				return
-
-			is_dragging = false
-			get_parent().z_index = 0 # Return to default render layer
-			
-			# Only elements should try to find a new parent. Windows just stop.
-			if is_element:
-				find_new_parent()
-
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+		is_dragging = true
+		offset = get_global_mouse_position() - get_parent().global_position
+		get_parent().z_index = 10
 
 func _physics_process(delta: float) -> void:
 	if is_dragging:
-		# IMPORTANT: Move the PARENT NODE (the whole Element or SubWindow scene), not just the Area2D.
-		get_parent().global_position = get_global_mouse_position()
+		# Let the object follow the mouse freely during the drag.
+		get_parent().global_position = get_global_mouse_position() - offset
 
-
-func find_new_parent() -> void:
+func handle_element_drop():
+	# 1. CHECK FOR A NEW HOME
 	var overlapping_areas = get_overlapping_areas()
-	var new_container_target = null
-
-	# Find the first valid drop container we are overlapping with.
+	var new_container_target: Area2D = null
+	
 	for area in overlapping_areas:
-		if area.is_in_group("drop_container"):
-			# Get the ElementContainer node from the SubWindow's DropContainer
-			new_container_target = area.get_node("ElementContainer")
+		# Find a new, valid container that is NOT our current one.
+		if area.is_in_group("drop_container") and area != current_container_area:
+			new_container_target = area
 			break
+			
+	if new_container_target:
+		# --- SUCCESS! TRANSFER TO NEW WINDOW ---
+		reparent_to_container(new_container_target)
+		# CRITICAL FIX: Update our home to the new container.
+		current_container_area = new_container_target
+		return
 
-	if new_container_target and new_container_target != original_parent_node:
-		# --- VALID DROP: REPARENT THE ELEMENT ---
-		var element_node = get_parent() # The Element scene itself
-		
-		# Remove the element from its old parent (the old ElementContainer)
-		element_node.get_parent().remove_child(element_node)
-		
-		# Add it to the new parent (the new ElementContainer)
-		new_container_target.add_child(element_node)
-		
-		# Center the element in its new home
-		element_node.position = Vector2.ZERO
-	else:
-		# --- INVALID DROP: RETURN TO ORIGINAL PARENT ---
-		# If no valid new parent was found, smoothly return to where it started.
-		# This prevents elements from being stranded.
-		get_parent().position = Vector2.ZERO
+	# 2. IF NO NEW HOME, ENFORCE BOUNDARIES OF CURRENT HOME
+	var container_shape_node = current_container_area.get_node("CollisionShape2D")
+	var container_rect = container_shape_node.shape.get_rect()
+	var container_global_pos = current_container_area.global_position
+	
+	# Create a Rect2 in global coordinates for our current home window.
+	var global_bounds = Rect2(container_global_pos - container_rect.size / 2, container_rect.size)
+	
+	# If dropped outside the bounds, snap back to the center of our CURRENT home.
+	if not global_bounds.has_point(get_parent().global_position):
+		get_parent().global_position = current_container_area.global_position
+
+func reparent_to_container(new_container: Area2D):
+	var element_node = get_parent()
+	var old_global_pos = element_node.global_position
+	
+	var new_element_container = new_container.get_node("ElementContainer")
+	
+	element_node.get_parent().remove_child(element_node)
+	new_element_container.add_child(element_node)
+	
+	element_node.global_position = old_global_pos
