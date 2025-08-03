@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkvxvh2h7oohb"]
+
+[ext_resource type="PackedScene" uid="uid://b8nlq7kpbdta5" path="res://draggable.tscn" id="1_1ccvd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcxas"]
+size = Vector2(448.5, 280.5)
+
+[node name="SubWindow" type="Node2D"]
+
+[node name="Draggable" parent="." instance=ExtResource("1_1ccvd")]
+
+[node name="CollisionShape2D" parent="Draggable" index="0"]
+position = Vector2(1, -128)
+
+[node name="DropContainer" type="Area2D" parent="." groups=["drop_container"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DropContainer"]
+position = Vector2(0.25, -0.75)
+shape = SubResource("RectangleShape2D_hcxas")
+
+[node name="ElementContainer" type="Node2D" parent="DropContainer"]
+
+[editable path="Draggable"]

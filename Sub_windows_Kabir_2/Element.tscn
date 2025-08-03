@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://btxf43tswli30"]
+
+[ext_resource type="PackedScene" uid="uid://b8nlq7kpbdta5" path="res://draggable.tscn" id="1_fpbda"]
+[ext_resource type="Texture2D" uid="uid://41w35w2dsh4l" path="res://Images/purple_guy.png" id="2_rfhgq"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Element" parent="." instance=ExtResource("1_fpbda")]
+
+[node name="CollisionShape2D" parent="Element" index="0"]
+position = Vector2(-0.25, -1.25)
+
+[node name="Sprite2D" parent="Element" index="1"]
+position = Vector2(0, 1)
+scale = Vector2(0.748335, 0.83586)
+texture = ExtResource("2_rfhgq")
+
+[editable path="Element"]

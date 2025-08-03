@@ -34,7 +34,6 @@ script = ExtResource("3_xf3n5")
 
 [node name="left_col" type="CollisionShape2D" parent="Sprite2D/movement_area/left_area"]
 position = Vector2(-387.917, 116.997)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ee3sd")
 
 [node name="right-area" type="Area2D" parent="Sprite2D/movement_area"]
@@ -43,7 +42,6 @@ script = ExtResource("4_wayri")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/movement_area/right-area"]
 position = Vector2(177.508, 83.8541)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ct15n")
 
 [connection signal="area_entered" from="Sprite2D/movement_area" to="Sprite2D/movement_area" method="_on_area_entered"]

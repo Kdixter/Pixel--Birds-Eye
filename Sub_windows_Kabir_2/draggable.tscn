@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8nlq7kpbdta5"]
+
+[ext_resource type="Script" path="res://Codes/draggable.gd" id="1_wstb8"]
+[ext_resource type="Texture2D" uid="uid://m5qq5cysib6t" path="res://Images/sub_window_sprite.jpg" id="2_mc8f1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mxei"]
+size = Vector2(448, 26)
+
+[node name="Draggable" type="Area2D"]
+script = ExtResource("1_wstb8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 125)
+shape = SubResource("RectangleShape2D_2mxei")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(1.49667, 1.67857)
+texture = ExtResource("2_mc8f1")
