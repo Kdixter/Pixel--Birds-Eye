@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdiuosnvcs5co"]
+[gd_scene load_steps=2 format=3 uid="uid://bdiuosnvcs5co"]
 
 [ext_resource type="PackedScene" uid="uid://bkvxvh2h7oohb" path="res://sub_window.tscn" id="1_pp3bx"]
-[ext_resource type="PackedScene" uid="uid://btxf43tswli30" path="res://Element.tscn" id="2_pjabe"]
 
 [node name="Main_Scene" type="Node2D"]
 
@@ -10,9 +9,10 @@
 [node name="SubWindow_1" parent="Camera2D" instance=ExtResource("1_pp3bx")]
 position = Vector2(-307, -123)
 
-[node name="element_1" parent="Camera2D/SubWindow_1" instance=ExtResource("2_pjabe")]
-
 [node name="SubWindow_2" parent="Camera2D" instance=ExtResource("1_pp3bx")]
 position = Vector2(318, -118)
 
-[node name="element_2" parent="Camera2D/SubWindow_2" instance=ExtResource("2_pjabe")]
+[editable path="Camera2D/SubWindow_1"]
+[editable path="Camera2D/SubWindow_1/Draggable"]
+[editable path="Camera2D/SubWindow_2"]
+[editable path="Camera2D/SubWindow_2/Draggable"]
